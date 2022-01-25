@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+section {
+    display: flex;
+    flex-flow: row wrap;
+    width: 600px;
+    justify-content: center;
+}
+
+dimension {
+    border: 5px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    width: 250px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+    section {
+        width: 400px;
+    }
+  }
