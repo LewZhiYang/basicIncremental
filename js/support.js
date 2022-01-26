@@ -12,16 +12,16 @@ function update() {
     for (let i=0; i<10; i++) {
         if (i != 0) {
             data.generators[i -1].amt += g[i].amt * interval
-            document.getElementById(`dim${i + 1}amt`).textContent = `You have ${data.generators[i].amt}`
-            document.getElementById(`dim${i + 1}production`).textContent = `Produces ${data.generators[i].amt} dim${i}/s`
+            document.getElementById(`dim${i + 1}production`).textContent = `Produces ${formatNumber(data.generators[i].amt)} dim${i}/s`
         } else {
             data.money += g[i].amt * interval
-            document.getElementById(`dim${i + 1}amt`).textContent = `You have ${data.generators[i].amt}`
-            document.getElementById(`dim${i + 1}production`).textContent = `Produces ${data.generators[i].amt} money/s`
+            document.getElementById(`dim${i + 1}production`).textContent = `Produces ${formatNumber(data.generators[i].amt)} money/s`
         }
+        document.getElementById(`dim${i + 1}amt`).textContent = `You have ${formatNumber(data.generators[i].amt)}`        
+        document.getElementById(`btn${i + 1}`).textContent = `Buy 1 (Cost:  ${formatNumber(data.generators[i].cost)})`
     }
 
-    document.getElementById('moneyAmt').textContent = `Money: ${data.money}`
+    document.getElementById('moneyAmt').textContent = `Money: ${formatNumber(data.money)}`
 
 }
 
@@ -54,6 +54,17 @@ function initialise() {
 }
 
 function buy(i) {
-    data.generators[i - 1].amt += 1
+    if (data.money >= data.generators[i - 1].cost){
+        data.generators[i - 1].amt += 1
+        data.money -= data.generators[i - 1].cost
+        data.generators[i - 1].cost *= (i + 1)
+    }
 }
 
+function formatNumber(number) {
+    if (number < 1000) {
+        return Math.round(number)
+    } else {
+        return number.toExponential(3)
+    }
+}
